@@ -127,7 +127,7 @@ const headCells: readonly HeadCell[] = [
   },
 ];
 
-interface EnhancedTableProps {
+interface OrderTableProps {
   numSelected: number;
   onRequestSort: (
     event: React.MouseEvent<unknown>,
@@ -139,7 +139,7 @@ interface EnhancedTableProps {
   rowCount: number;
 }
 
-function EnhancedTableHead(props: EnhancedTableProps) {
+function OrderTableHead(props: OrderTableProps) {
   const {
     onSelectAllClick,
     order,
@@ -154,9 +154,12 @@ function EnhancedTableHead(props: EnhancedTableProps) {
     };
 
   return (
-    <TableHead>
+    <TableHead sx={{ backgroundColor: '#f3f4f6' }}>
       <TableRow>
-        <TableCell padding="checkbox">
+        <TableCell
+          padding="checkbox"
+          sx={{ borderRight: '2px solid lightgray' }}
+        >
           <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -171,7 +174,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? 'center' : 'left'}
-            padding={headCell.disablePadding ? 'none' : 'normal'}
+            padding="normal"
             sortDirection={orderBy === headCell.id ? order : false}
             sx={
               headCell.numeric
@@ -179,8 +182,13 @@ function EnhancedTableHead(props: EnhancedTableProps) {
                     whiteSpace: 'nowrap',
                     transform: 'translate(10%)',
                     fontWeight: 'bold',
+                    borderRight: '2px solid lightgray',
                   }
-                : { whiteSpace: 'nowrap', fontWeight: 'bold' }
+                : {
+                    whiteSpace: 'nowrap',
+                    fontWeight: 'bold',
+                    borderRight: '2px solid lightgray',
+                  }
             }
           >
             <TableSortLabel
@@ -202,11 +210,7 @@ function EnhancedTableHead(props: EnhancedTableProps) {
   );
 }
 
-export default function EnhancedTable({
-  orderData,
-}: {
-  orderData: OrderData[];
-}) {
+function OrderTable({ orderData }: { orderData: OrderData[] }) {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof OrderData>('vendor');
   const [selected, setSelected] = React.useState<readonly number[]>([]);
@@ -277,7 +281,7 @@ export default function EnhancedTable({
             aria-labelledby="tableTitle"
             size="medium"
           >
-            <EnhancedTableHead
+            <OrderTableHead
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
@@ -292,7 +296,7 @@ export default function EnhancedTable({
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
                   const isItemSelected = isSelected(row.poId);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+                  const labelId = `order-table-checkbox-${index}`;
 
                   return (
                     <TableRow
@@ -327,7 +331,7 @@ export default function EnhancedTable({
                         component="th"
                         id={labelId}
                         scope="row"
-                        padding="none"
+                        padding="normal"
                         align="left"
                       >
                         {row.vendor}
@@ -372,3 +376,5 @@ export default function EnhancedTable({
     </Box>
   );
 }
+
+export default OrderTable;
