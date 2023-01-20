@@ -42,7 +42,7 @@ export const orderData: OrderData[] = [
   },
   {
     id: 2,
-    notification: false,
+    notification: true,
     vendor: 'Ghatotkach Packs',
     vendorCode: '334578',
     poId: 4504356789,
