@@ -7,9 +7,11 @@ specifiers:
   '@mui/icons-material': ^5.11.0
   '@mui/material': ^5.11.4
   '@mui/utils': ^5.11.2
+  '@mui/x-date-pickers': ^5.0.15
   '@types/react': ^18.0.26
   '@types/react-dom': ^18.0.9
   '@vitejs/plugin-react-swc': ^3.0.0
+  dayjs: ^1.11.7
   react: ^18.2.0
   react-dom: ^18.2.0
   typescript: ^4.9.3
@@ -22,6 +24,8 @@ dependencies:
   '@mui/icons-material': 5.11.0_6zueiyxsk3wwk7ardr4xipkxnu
   '@mui/material': 5.11.4_lskpmcsdi7ipu6qpuapyu56ihm
   '@mui/utils': 5.11.2_react@18.2.0
+  '@mui/x-date-pickers': 5.0.15_m7cc2smtbmdzig2omnko2hxfke
+  dayjs: 1.11.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
 
@@ -256,6 +260,55 @@ packages:
       '@babel/helper-string-parser': 7.19.4
       '@babel/helper-validator-identifier': 7.19.1
       to-fast-properties: 2.0.0
+    dev: false
+
+  /@date-io/core/2.16.0:
+    resolution: {integrity: sha512-DYmSzkr+jToahwWrsiRA2/pzMEtz9Bq1euJwoOuYwuwIYXnZFtHajY2E6a1VNVDc9jP8YUXK1BvnZH9mmT19Zg==}
+    dev: false
+
+  /@date-io/date-fns/2.16.0:
+    resolution: {integrity: sha512-bfm5FJjucqlrnQcXDVU5RD+nlGmL3iWgkHTq3uAZWVIuBu6dDmGa3m8a6zo2VQQpu8ambq9H22UyUpn7590joA==}
+    peerDependencies:
+      date-fns: ^2.0.0
+    peerDependenciesMeta:
+      date-fns:
+        optional: true
+    dependencies:
+      '@date-io/core': 2.16.0
+    dev: false
+
+  /@date-io/dayjs/2.16.0_dayjs@1.11.7:
+    resolution: {integrity: sha512-y5qKyX2j/HG3zMvIxTobYZRGnd1FUW2olZLS0vTj7bEkBQkjd2RO7/FEwDY03Z1geVGlXKnzIATEVBVaGzV4Iw==}
+    peerDependencies:
+      dayjs: ^1.8.17
+    peerDependenciesMeta:
+      dayjs:
+        optional: true
+    dependencies:
+      '@date-io/core': 2.16.0
+      dayjs: 1.11.7
+    dev: false
+
+  /@date-io/luxon/2.16.1:
+    resolution: {integrity: sha512-aeYp5K9PSHV28946pC+9UKUi/xMMYoaGelrpDibZSgHu2VWHXrr7zWLEr+pMPThSs5vt8Ei365PO+84pCm37WQ==}
+    peerDependencies:
+      luxon: ^1.21.3 || ^2.x || ^3.x
+    peerDependenciesMeta:
+      luxon:
+        optional: true
+    dependencies:
+      '@date-io/core': 2.16.0
+    dev: false
+
+  /@date-io/moment/2.16.1:
+    resolution: {integrity: sha512-JkxldQxUqZBfZtsaCcCMkm/dmytdyq5pS1RxshCQ4fHhsvP5A7gSqPD22QbVXMcJydi3d3v1Y8BQdUKEuGACZQ==}
+    peerDependencies:
+      moment: ^2.24.0
+    peerDependenciesMeta:
+      moment:
+        optional: true
+    dependencies:
+      '@date-io/core': 2.16.0
     dev: false
 
   /@emotion/babel-plugin/11.10.5_@babel+core@7.20.12:
@@ -797,6 +850,54 @@ packages:
       react-is: 18.2.0
     dev: false
 
+  /@mui/x-date-pickers/5.0.15_m7cc2smtbmdzig2omnko2hxfke:
+    resolution: {integrity: sha512-jQPwiB961fYT79H419/sfSqWRefo9aCx5MEDGZOifMuRv6k5gcZCrSFjmLC5Lt4PZ20BsitJYvSKpmvYZYh+mg==}
+    engines: {node: '>=12.0.0'}
+    peerDependencies:
+      '@emotion/react': ^11.9.0
+      '@emotion/styled': ^11.8.1
+      '@mui/material': ^5.4.1
+      '@mui/system': ^5.4.1
+      date-fns: ^2.25.0
+      dayjs: ^1.10.7
+      luxon: ^1.28.0 || ^2.0.0 || ^3.0.0
+      moment: ^2.29.1
+      react: ^17.0.2 || ^18.0.0
+      react-dom: ^17.0.2 || ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/react':
+        optional: true
+      '@emotion/styled':
+        optional: true
+      date-fns:
+        optional: true
+      dayjs:
+        optional: true
+      luxon:
+        optional: true
+      moment:
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.20.7
+      '@date-io/core': 2.16.0
+      '@date-io/date-fns': 2.16.0
+      '@date-io/dayjs': 2.16.0_dayjs@1.11.7
+      '@date-io/luxon': 2.16.1
+      '@date-io/moment': 2.16.1
+      '@emotion/react': 11.10.5_jp5qgyg6plq757v5hojp7ls2oe
+      '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
+      '@mui/material': 5.11.4_lskpmcsdi7ipu6qpuapyu56ihm
+      '@mui/utils': 5.11.2_react@18.2.0
+      '@types/react-transition-group': 4.4.5
+      clsx: 1.2.1
+      dayjs: 1.11.7
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-transition-group: 4.4.5_biqbaboplfbrettd7655fr4n2y
+      rifm: 0.12.1_react@18.2.0
+    dev: false
+
   /@popperjs/core/2.11.6:
     resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
     dev: false
@@ -1029,6 +1130,10 @@ packages:
 
   /csstype/3.1.1:
     resolution: {integrity: sha512-DJR/VvkAvSZW9bTouZue2sSxDwdTN92uHjqeKVm+0dAqdfNykRzQ95tay8aXMBAAPpUiq4Qcug2L7neoRh2Egw==}
+
+  /dayjs/1.11.7:
+    resolution: {integrity: sha512-+Yw9U6YO5TQohxLcIkrXBeY73WP3ejHWVvx8XCk3gxvQDCTEmS48ZrSZCKciI7Bhl/uCMyxYtE9UqRILmFphkQ==}
+    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -1319,6 +1424,14 @@ packages:
       is-core-module: 2.11.0
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
+
+  /rifm/0.12.1_react@18.2.0:
+    resolution: {integrity: sha512-OGA1Bitg/dSJtI/c4dh90svzaUPt228kzFsUkJbtA2c964IqEAwWXeL9ZJi86xWv3j5SMqRvGULl7bA6cK0Bvg==}
+    peerDependencies:
+      react: '>=16.8'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /rollup/3.10.0:
     resolution: {integrity: sha512-JmRYz44NjC1MjVF2VKxc0M1a97vn+cDxeqWmnwyAF4FvpjK8YFdHpaqvQB+3IxCvX05vJxKZkoMDU8TShhmJVA==}
