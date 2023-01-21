@@ -4,6 +4,7 @@ specifiers:
   '@babel/core': ^7.20.12
   '@emotion/react': ^11.10.5
   '@emotion/styled': ^11.10.5
+  '@formkit/auto-animate': 1.0.0-beta.5
   '@mui/icons-material': ^5.11.0
   '@mui/material': ^5.11.4
   '@mui/utils': ^5.11.2
@@ -23,6 +24,7 @@ dependencies:
   '@babel/core': 7.20.12
   '@emotion/react': 11.10.5_jp5qgyg6plq757v5hojp7ls2oe
   '@emotion/styled': 11.10.5_jp5djshq6aqfasno3mth3hguci
+  '@formkit/auto-animate': 1.0.0-beta.5
   '@mui/icons-material': 5.11.0_6zueiyxsk3wwk7ardr4xipkxnu
   '@mui/material': 5.11.4_lskpmcsdi7ipu6qpuapyu56ihm
   '@mui/utils': 5.11.2_react@18.2.0
@@ -640,6 +642,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@formkit/auto-animate/1.0.0-beta.5:
+    resolution: {integrity: sha512-WoSwyhAZPOe6RB/IgicOtCHtrWwEpfKIZ/H/nxpKfnZL9CB6hhhBGU5bCdMRw7YpAUF2CDlQa+WWh+gCqz5lDg==}
+    dev: false
 
   /@jridgewell/gen-mapping/0.1.1:
     resolution: {integrity: sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w==}

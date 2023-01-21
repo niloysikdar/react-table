@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { MouseEvent, ChangeEvent } from 'react';
+import type { RefObject, MouseEvent, ChangeEvent } from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -13,6 +13,7 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { orderData as tableData } from '../../data';
 import type { OrderData } from '../../data';
 import { filterAndSearch } from '../../utils/filterAndSearch';
@@ -218,6 +219,7 @@ function OrderTable() {
   const [selected, setSelected] = useState<readonly number[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [animateParent] = useAutoAnimate();
 
   const orderData = filterAndSearch(tableData);
 
@@ -294,7 +296,9 @@ function OrderTable() {
               onRequestSort={handleRequestSort}
               rowCount={orderData.length}
             />
-            <TableBody>
+            <TableBody
+              ref={animateParent as RefObject<HTMLTableSectionElement>}
+            >
               {orderData
                 .slice()
                 .sort(getComparator(order, orderBy))
