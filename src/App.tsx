@@ -1,7 +1,10 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Box } from '@mui/material';
 import FiltersBar from './components/FiltersBar';
 import SearchBar from './components/SearchBar';
 import OrderTable from './components/Table';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
@@ -11,7 +14,10 @@ function App() {
     >
       <SearchBar />
       <FiltersBar />
-      <OrderTable />
+
+      <QueryClientProvider client={queryClient}>
+        <OrderTable />
+      </QueryClientProvider>
     </Box>
   );
 }

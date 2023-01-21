@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { RefObject, MouseEvent, ChangeEvent } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,12 +12,13 @@ import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
+import CircularProgress from '@mui/material/CircularProgress';
 import { visuallyHidden } from '@mui/utils';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
-import { orderData as tableData } from '../../data';
 import type { OrderData } from '../../data';
 import { filterAndSearch } from '../../utils/filterAndSearch';
+import { getOrders } from '../../services/API';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -169,8 +171,9 @@ function OrderTableHead(props: OrderTableProps) {
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}
             inputProps={{
-              'aria-label': 'select all desserts',
+              'aria-label': 'select all',
             }}
+            sx={{ marginRight: '3.5rem' }}
           />
         </TableCell>
         {headCells.map((headCell) => (
@@ -221,7 +224,12 @@ function OrderTable() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [animateParent] = useAutoAnimate();
 
-  const orderData = filterAndSearch(tableData);
+  const { isLoading, error, data } = useQuery({
+    queryKey: ['orderData'],
+    queryFn: () => getOrders().then((res) => res),
+  });
+
+  const orderData = filterAndSearch(data || []);
 
   const handleRequestSort = (
     event: MouseEvent<unknown>,
@@ -296,6 +304,7 @@ function OrderTable() {
               onRequestSort={handleRequestSort}
               rowCount={orderData.length}
             />
+
             <TableBody
               ref={animateParent as RefObject<HTMLTableSectionElement>}
             >
@@ -303,9 +312,9 @@ function OrderTable() {
                 .slice()
                 .sort(getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
+                .map((row) => {
                   const isItemSelected = isSelected(row.poId);
-                  const labelId = `order-table-checkbox-${index}`;
+                  const labelId = `order-table-checkbox-${row.poId}`;
 
                   return (
                     <TableRow
@@ -389,6 +398,12 @@ function OrderTable() {
           onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </Paper>
+
+      {isLoading && (
+        <Box display="flex" justifyContent="center" alignItems="center">
+          <CircularProgress size="3.5rem" />
+        </Box>
+      )}
     </Box>
   );
 }
