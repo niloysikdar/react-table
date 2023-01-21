@@ -276,7 +276,10 @@ function OrderTable() {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2 }}>
+      <Paper
+        elevation={0}
+        sx={{ width: '100%', mb: 2, border: '2px solid lightgray' }}
+      >
         <TableContainer>
           <Table
             sx={{ minWidth: 750 }}
@@ -319,13 +322,20 @@ function OrderTable() {
                             'aria-labelledby': labelId,
                           }}
                         />
-                        {row.notification && (
+                        {row.notification ? (
                           <NotificationsIcon
                             sx={{
                               transform: 'translate(0, 30%)',
                               color: '#F6BE00',
                               marginRight: '2rem',
                             }}
+                          />
+                        ) : (
+                          <Box
+                            height="24px"
+                            width="24px"
+                            marginRight="2rem"
+                            display="inline-block"
                           />
                         )}
                       </TableCell>

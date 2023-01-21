@@ -5,7 +5,10 @@ import OrderTable from './components/Table';
 
 function App() {
   return (
-    <Box paddingTop="2rem">
+    <Box
+      padding="2rem 1rem"
+      sx={{ minHeight: '100vh', backgroundColor: '#f3f4f6' }}
+    >
       <SearchBar />
       <FiltersBar />
       <OrderTable />
