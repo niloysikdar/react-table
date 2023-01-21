@@ -1,4 +1,5 @@
-import * as React from 'react';
+import { useState } from 'react';
+import type { MouseEvent, ChangeEvent } from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -12,8 +13,9 @@ import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
 import { visuallyHidden } from '@mui/utils';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-
+import { orderData as tableData } from '../../data';
 import type { OrderData } from '../../data';
+import { filterAndSearch } from '../../utils/filterAndSearch';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -130,10 +132,10 @@ const headCells: readonly HeadCell[] = [
 interface OrderTableProps {
   numSelected: number;
   onRequestSort: (
-    event: React.MouseEvent<unknown>,
+    event: MouseEvent<unknown>,
     property: keyof OrderData,
   ) => void;
-  onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSelectAllClick: (event: ChangeEvent<HTMLInputElement>) => void;
   order: Order;
   orderBy: string;
   rowCount: number;
@@ -149,7 +151,7 @@ function OrderTableHead(props: OrderTableProps) {
     onRequestSort,
   } = props;
   const createSortHandler =
-    (property: keyof OrderData) => (event: React.MouseEvent<unknown>) => {
+    (property: keyof OrderData) => (event: MouseEvent<unknown>) => {
       onRequestSort(event, property);
     };
 
@@ -210,15 +212,17 @@ function OrderTableHead(props: OrderTableProps) {
   );
 }
 
-function OrderTable({ orderData }: { orderData: OrderData[] }) {
-  const [order, setOrder] = React.useState<Order>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof OrderData>('vendor');
-  const [selected, setSelected] = React.useState<readonly number[]>([]);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+function OrderTable() {
+  const [order, setOrder] = useState<Order>('asc');
+  const [orderBy, setOrderBy] = useState<keyof OrderData>('vendor');
+  const [selected, setSelected] = useState<readonly number[]>([]);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const orderData = filterAndSearch(tableData);
 
   const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
+    event: MouseEvent<unknown>,
     property: keyof OrderData,
   ) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -226,7 +230,7 @@ function OrderTable({ orderData }: { orderData: OrderData[] }) {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = orderData.map((n) => n.poId);
       setSelected(newSelected);
@@ -235,7 +239,7 @@ function OrderTable({ orderData }: { orderData: OrderData[] }) {
     setSelected([]);
   };
 
-  const handleClick = (event: React.MouseEvent<unknown>, name: number) => {
+  const handleClick = (event: MouseEvent<unknown>, name: number) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected: readonly number[] = [];
 
@@ -259,9 +263,7 @@ function OrderTable({ orderData }: { orderData: OrderData[] }) {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
