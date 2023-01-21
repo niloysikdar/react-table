@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
@@ -8,14 +9,27 @@ import SearchIcon from '@mui/icons-material/Search';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
 import { useDebouncedCallback } from 'use-debounce';
+import { CSVLink } from 'react-csv';
 import useFilterStore from '../../store/filterStore';
+import { useOrderData } from '../../hooks/useOrderData';
+import { headCells } from '../Table';
 
 function SearchBar() {
+  const exportCSVRef = useRef<any>(null);
+  const { isLoading, data } = useOrderData();
+
   const setSearchTerm = useFilterStore((state) => state.setSearchTerm);
 
   const debounced = useDebouncedCallback((value: string) => {
     setSearchTerm(value);
   }, 300);
+
+  const headers = headCells.map((headCell) => ({
+    label: headCell.label,
+    key: headCell.id,
+  }));
+
+  const csvData = data?.map(({ id, notification, ...rest }) => ({ ...rest }));
 
   return (
     <Paper
@@ -61,6 +75,7 @@ function SearchBar() {
 
         <Button
           variant="contained"
+          disabled={isLoading}
           startIcon={<SystemUpdateAltIcon />}
           sx={{
             textTransform: 'none',
@@ -68,9 +83,18 @@ function SearchBar() {
             paddingLeft: '1.5rem',
             paddingRight: '1.5rem',
           }}
+          onClick={() => exportCSVRef.current.link.click()}
         >
           Export
         </Button>
+
+        <CSVLink
+          ref={exportCSVRef}
+          style={{ display: 'hidden' }}
+          data={csvData || []}
+          headers={headers}
+          filename="purchase-orders.csv"
+        />
       </Box>
     </Paper>
   );

@@ -21,7 +21,7 @@ function SelectFilter({
 }: SelectFilterProps) {
   return (
     <Box>
-      <FormControl sx={{ minWidth: 120 }} size="small">
+      <FormControl sx={{ minWidth: 180 }} size="small">
         <InputLabel id={id}>{label}</InputLabel>
         <Select
           labelId={id}

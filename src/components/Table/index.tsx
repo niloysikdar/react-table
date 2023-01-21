@@ -18,7 +18,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import type { OrderData } from '../../data';
 import { filterAndSearch } from '../../utils/filterAndSearch';
-import { getOrders } from '../../services/API';
+import { useOrderData } from '../../hooks/useOrderData';
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
   if (b[orderBy] < a[orderBy]) {
@@ -51,7 +51,7 @@ interface HeadCell {
   numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
+export const headCells: readonly HeadCell[] = [
   {
     id: 'vendor',
     numeric: false,
@@ -65,7 +65,7 @@ const headCells: readonly HeadCell[] = [
     label: 'Vendor Code',
   },
   {
-    id: 'po',
+    id: 'poId',
     numeric: true,
     disablePadding: false,
     label: 'PO#',
@@ -224,10 +224,7 @@ function OrderTable() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [animateParent] = useAutoAnimate();
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ['orderData'],
-    queryFn: () => getOrders().then((res) => res),
-  });
+  const { isLoading, data } = useOrderData();
 
   const orderData = filterAndSearch(data || []);
 
