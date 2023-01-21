@@ -6,10 +6,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { Box } from '@mui/material';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchIcon from '@mui/icons-material/Search';
 import SelectFilter from './components/SelectFilter';
 import OrderTable from './components/Table';
 import { orderData } from './data';
 import { filterData, filterDataByDate } from './utils/filterUtils';
+import { searchTable } from './utils/search';
 
 const allStatus = ['All', ...new Set(orderData.map((e) => e.status))];
 const allSuppliers = ['All', ...new Set(orderData.map((e) => e.vendor))];
@@ -23,17 +26,33 @@ function App() {
   const [fromDate, setFromDate] = useState<Dayjs | null>(null);
   const [toDate, setToDate] = useState<Dayjs | null>(null);
 
+  const [search, setSearch] = useState('');
+
   const filteredData = useMemo(() => {
     const data = filterData(orderData, filters);
-    return filterDataByDate(
+    const data2 = filterDataByDate(
       data,
       fromDate?.format('DD/MM/YYYY') || '',
       toDate?.format('DD/MM/YYYY') || '',
     );
-  }, [filters, fromDate, toDate]);
+    return searchTable(data2, search);
+  }, [filters, fromDate, toDate, search]);
 
   return (
     <Box marginTop="2rem">
+      <TextField
+        size="small"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        placeholder="Search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
       <Paper
         sx={{ display: 'flex', marginBottom: '2rem', alignItems: 'center' }}
       >

@@ -2,7 +2,7 @@ export type OrderData = {
   id: number;
   notification: boolean;
   vendor: string;
-  vendorCode: string;
+  vendorCode: number;
   poId: number;
   poLine: number;
   description: string;
@@ -27,7 +27,7 @@ export const orderData: OrderData[] = [
     id: 1,
     notification: false,
     vendor: 'Allen Packs',
-    vendorCode: '321345',
+    vendorCode: 321345,
     poId: 4504567863,
     poLine: 1,
     description: 'Carton - Azithro 3x10 300 GSM FBB',
@@ -44,7 +44,7 @@ export const orderData: OrderData[] = [
     id: 2,
     notification: true,
     vendor: 'Ghatotkach Packs',
-    vendorCode: '334578',
+    vendorCode: 334578,
     poId: 4504356789,
     poLine: 1,
     description: 'Corr Box 5 Ply 12.2x12.2x6.2',
