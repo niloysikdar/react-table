@@ -218,7 +218,7 @@ function OrderTableHead(props: OrderTableProps) {
 
 function OrderTable() {
   const [order, setOrder] = useState<Order>('asc');
-  const [orderBy, setOrderBy] = useState<keyof OrderData>('vendor');
+  const [orderBy, setOrderBy] = useState<keyof OrderData>('poId');
   const [selected, setSelected] = useState<readonly number[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -362,10 +362,18 @@ function OrderTable() {
                       <TableCell align="center">{row.poId}</TableCell>
                       <TableCell align="center">{row.poLine}</TableCell>
                       <TableCell align="left">{row.description}</TableCell>
-                      <TableCell align="center">{row.poValue}</TableCell>
-                      <TableCell align="center">{row.qtyOrdered}</TableCell>
-                      <TableCell align="center">{row.qtyShipped}</TableCell>
-                      <TableCell align="center">{row.grQuantity}</TableCell>
+                      <TableCell align="center">
+                        {row.poValue.toLocaleString()}
+                      </TableCell>
+                      <TableCell align="center">
+                        {row.qtyOrdered.toLocaleString()}
+                      </TableCell>
+                      <TableCell align="center">
+                        {row.qtyShipped?.toLocaleString() || '-'}
+                      </TableCell>
+                      <TableCell align="center">
+                        {row.grQuantity?.toLocaleString() || '-'}
+                      </TableCell>
                       <TableCell align="center">{row.uom}</TableCell>
                       <TableCell align="center">{row.dueDate}</TableCell>
                       <TableCell align="center">{row.committedDate}</TableCell>
