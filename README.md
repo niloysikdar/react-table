@@ -36,6 +36,8 @@
 
 - [x] Export data to CSV format in just one click with proper formatting
 
+- [x] Responsive UI for larger and smaller screens
+
 ### Preview
 
 <img src="https://imgur.com/QMZ8QJ1.png" width="90%" />
